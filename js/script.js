@@ -76,3 +76,29 @@ function createStaff(name, role, phone, email, photourl, experiences) {
     localStorage.setItem('id_worker', ++IDwerker)
     return worker
 }
+
+document.getElementById('btn').addEventListener('click', () => {
+
+
+
+ })
+
+function show_Unassigned_Staff_list() {
+    let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
+    document.getElementById("Unassigned-Staff-list").innerHTML = ""
+    staff_table.forEach(staff => {
+        if (staff.etat === "NotYet") { 
+            let staff_card = document.createElement("div")
+            staff_card.className = "card m-1 p-0 bg-light"
+            staff_card.setAttribute('id', staff.id)
+            staff_card.innerHTML = ` <div class="card-body m-0 p-1 d-flex  gap-4 align-items-center" >
+                                    <img src=" ${staff.photourl} " width="44" class="rounded-circle" alt="Photo">
+                                    <div class="  ">
+                                        <span class=" d-block fs-12"> ${staff.fullname}</span>
+                                        <span class="  text-muted   fw-bold fs-10"> ${staff.role}</span>
+                                    </div>
+                                 </div> `
+            document.getElementById("Unassigned-Staff-list").appendChild(staff_card)
+        }
+    });
+}
