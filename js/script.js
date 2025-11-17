@@ -44,3 +44,9 @@ document.getElementById("add-exp").addEventListener('click', function () {
     `
     document.getElementById('experiences-container').appendChild(experienceform)
 })
+document.getElementById('experiences-container').addEventListener('click', (e) => {
+    let elementClick = e.target
+    if (elementClick.tagName === "I") {
+        elementClick.closest('div.experience').remove()
+    }
+})
