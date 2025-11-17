@@ -50,3 +50,29 @@ document.getElementById('experiences-container').addEventListener('click', (e) =
         elementClick.closest('div.experience').remove()
     }
 })
+
+
+
+function createExp(poste, entreprise, dateStart, dateEnd) {
+    return {
+        poste: poste,
+        entreprise: entreprise,
+        date_start: dateStart,
+        date_end: dateEnd || "Présent"
+    };
+}
+function createStaff(name, role, phone, email, photourl, experiences) {
+    let IDwerker = Number(localStorage.getItem("id_worker")) || 0
+    worker = {
+        id: IDwerker,
+        fullname: name,
+        role: role,
+        phone: phone,
+        email: email,
+        photourl: photourl,
+        etat: "NotYet",
+        experiences: experiences
+    }
+    localStorage.setItem('id_worker', ++IDwerker)
+    return worker
+}
