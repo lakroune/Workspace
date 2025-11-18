@@ -126,3 +126,13 @@ document.getElementById('btn').addEventListener('click', () => {
 document.getElementById("btn-add-staff").addEventListener('click', () => {
     document.getElementById("model-add-staff").classList.toggle('d-none')
 })
+
+
+
+document.getElementById('add_workers_Archives_room').addEventListener('click', function () {
+    document.getElementById('model-filter-staff').classList.remove('d-none')
+    document.getElementById('model-filter-staff').setAttribute('data-room', 'Archives_room')
+    let workers = JSON.parse(localStorage.getItem("staff_table"))
+    let workers_in_archives_room = workers.filter(worker => worker.role === "Manager" && worker.etat === 'NotYet')
+    affiche_list_worker_filter(workers_in_archives_room, "ligal")
+})
