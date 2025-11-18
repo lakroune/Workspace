@@ -183,6 +183,31 @@ document.getElementById('add_workers_Staff_room').addEventListener('click', func
 
 
 
+document.getElementById('model-filter-staff').addEventListener('click', (e) => {
+    try {
+        let elementClick = e.target
+        if (elementClick.closest('div.worker')) {
+            let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
+            if (confirm(' Do you want to assign this worker to ' + document.getElementById('model-filter-staff').getAttribute('data-room'))) {
+
+                staff_table = staff_table.map(worker => {
+                    if (worker.id === Number(elementClick.closest('div.worker').getAttribute("id"))) {
+                        return { ...worker, etat: document.getElementById('model-filter-staff').getAttribute('data-room') };
+                    }
+                    return worker;
+                })
+                localStorage.setItem('staff_table', JSON.stringify(staff_table))
+                elementClick.closest('div.worker').remove()
+                document.getElementById('model-filter-staff').classList.add('d-none');
+                show_Unassigned_Staff_list()
+                assign_Staff_to_Carte()
+            }
+        }
+    } catch {
+        alert('il y a  un erreur')
+    }
+})
+
 
 
 /////
