@@ -77,11 +77,6 @@ function createStaff(name, role, phone, email, photourl, experiences) {
     return worker
 }
 
-document.getElementById('btn').addEventListener('click', () => {
-
-
-
- })
 
 function show_Unassigned_Staff_list() {
     let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
@@ -102,3 +97,26 @@ function show_Unassigned_Staff_list() {
         }
     });
 }
+
+document.getElementById('btn').addEventListener('click', () => {
+    const name_input = document.getElementById('model-add-staff').querySelector('input[name="name"]');
+    const role_input = document.getElementById('model-add-staff').querySelector('select[name="role"]');
+    const phone_input = document.getElementById('model-add-staff').querySelector('input[name="phone"]');
+    const email_input = document.getElementById('model-add-staff').querySelector('input[name="email"]');
+    const photo_input = document.getElementById('model-add-staff').querySelector('input[name="photo"]');
+    const experiences = document.getElementById('experiences-container').querySelectorAll('div.experience');
+    let experiencestable = []
+    if (experiences) {
+        experiences.forEach(element => {
+            experiencestable.push(createExp(element.querySelector('input[name="postes"]').value, element.querySelector('input[name="entreprises"]').value, element.querySelector('input[name="date_start"]').value, element.querySelector('input[name="date_end"]').value))
+        });
+    }
+    let newStaff = createStaff(name_input.value, role_input.value, phone_input.value, email_input.value, photo_input.value, experiencestable)
+    let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
+    staff_table.push(newStaff)
+    localStorage.setItem("staff_table", JSON.stringify(staff_table))
+    document.getElementById('model-add-staff').querySelector('form').reset();
+
+    document.getElementById("model-add-staff").classList.toggle('d-none')
+    show_Unassigned_Staff_list()
+})
