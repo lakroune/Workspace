@@ -1,3 +1,5 @@
+show_Unassigned_Staff_list()
+
 document.getElementById('close-modal-add').addEventListener('click', (e) => {
     let elementClick = e.target
 
@@ -119,4 +121,8 @@ document.getElementById('btn').addEventListener('click', () => {
 
     document.getElementById("model-add-staff").classList.toggle('d-none')
     show_Unassigned_Staff_list()
+})
+
+document.getElementById("btn-add-staff").addEventListener('click', () => {
+    document.getElementById("model-add-staff").classList.toggle('d-none')
 })
