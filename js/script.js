@@ -182,35 +182,39 @@ document.getElementById('add_workers_Staff_room').addEventListener('click', func
 
 
 
+function affiche_worker_filter_title(title) {
+    let carttitile = document.createElement('div')
+    carttitile.className = "d-flex justify-content-between "
+    carttitile.innerHTML =
+        `   <span class="p-2"> ${title}  </span> 
+         <button class="  border-0  bg-white bg-opacity-0  m-0 p-0  rounded  text-danger  ">
+                   X
+                </button>       
+             `
+   
+    return carttitile
+}
+function affiche_worker_filter(worker) {
+    let cartworker = document.createElement('div')
+    cartworker.className = "d-flex bg-light  border justify-content-center align-items-center m-1 rounded p-1 worker"
+    cartworker.id = worker.id
+    cartworker.innerHTML =
+        `  
+                    <div class=" ">
+                        <img id="photo-preview" width="44" height="44" class="rounded-5" src="${worker.photourl}"
+                            alt="preview" />
+                    </div>
+                    <div class="flex-grow-1">
+                      
 
-document.getElementById('model-filter-staff').addEventListener('click', (e) => {
-    try {
-        let elementClick = e.target
-        if (elementClick.closest('div.worker')) {
-            let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
-            if (confirm(' Do you want to assign this worker to ' + document.getElementById('model-filter-staff').getAttribute('data-room'))) {
-
-                staff_table = staff_table.map(worker => {
-                    if (worker.id === Number(elementClick.closest('div.worker').getAttribute("id"))) {
-                        return { ...worker, etat: document.getElementById('model-filter-staff').getAttribute('data-room') };
-                    }
-                    return worker;
-                })
-                localStorage.setItem('staff_table', JSON.stringify(staff_table))
-                elementClick.closest('div.worker').remove()
-                document.getElementById('model-filter-staff').classList.add('d-none');
-                show_Unassigned_Staff_list()
-                assign_Staff_to_Carte()
-            }
-        }
-    } catch {
-        alert('il y a  un erreur')
-    }
-})
+                    </div>
+            `
+    return cartworker
+}
 
 
 
-/////
+
 
 
 function affiche_list_worker_filter(whoker_in_room, title) {
