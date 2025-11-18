@@ -179,3 +179,19 @@ document.getElementById('add_workers_Staff_room').addEventListener('click', func
     let workers_in_Staff_room = workers.filter(worker => worker.etat === 'NotYet')
     affiche_list_worker_filter(workers_in_Staff_room, "ligal")
 })
+
+
+
+
+
+
+/////
+
+
+function affiche_list_worker_filter(whoker_in_room, title) {
+    document.getElementById('model-filter-staff').innerHTML = ""
+    document.getElementById('model-filter-staff').append(affiche_worker_filter_title(title))
+    whoker_in_room.forEach(worker => {
+        document.getElementById('model-filter-staff').append(affiche_worker_filter(worker))
+    });
+}
