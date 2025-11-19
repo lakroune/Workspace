@@ -212,6 +212,20 @@ function removeWorkerFromRoom(idworker) {
     show_Unassigned_Staff_list()
 }
 
+function reset_Staff_to_Carte() {
+    document.getElementById("ConferenceRoom").querySelector("div.cards-continer").innerHTML = ""
+    document.getElementById("StaffRoom").querySelector("div.cards-continer").innerHTML = ""
+    document.getElementById("Reception").querySelector("div.cards-continer").innerHTML = ""
+    document.getElementById("ServerRoom").querySelector("div.cards-continer").innerHTML = ""
+    document.getElementById("SecurityRoom").querySelector("div.cards-continer").innerHTML = ""
+    document.getElementById("ArchivesRoom").querySelector("div.cards-continer").innerHTML = ""
+    document.getElementById("Reception").classList.add('bg-danger')
+    document.getElementById("ServerRoom").classList.add('bg-danger')
+    document.getElementById("SecurityRoom").classList.add('bg-danger')
+    document.getElementById("ArchivesRoom").classList.add('bg-danger')
+
+}
+
 
 function affiche_worker_filter_title(title) {
     let carttitile = document.createElement('div')
