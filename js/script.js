@@ -199,6 +199,19 @@ function addWorkerToRoom(worker, room) {
     roomCard.appendChild(divWorker)
 }
 
+function removeWorkerFromRoom(idworker) {
+    let staff_table = JSON.parse(localStorage.getItem("staff_table")) || [];
+    staff_table = staff_table.map(worker => {
+        if (worker.id == Number(idworker)) {
+            return { ...worker, etat: "NotYet" };
+        }
+        return worker;
+    })
+    localStorage.setItem('staff_table', JSON.stringify(staff_table))
+    assign_Staff_to_Carte()
+    show_Unassigned_Staff_list()
+}
+
 
 function affiche_worker_filter_title(title) {
     let carttitile = document.createElement('div')
