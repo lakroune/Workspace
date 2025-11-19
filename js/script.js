@@ -180,6 +180,24 @@ document.getElementById('add_workers_Staff_room').addEventListener('click', func
     affiche_list_worker_filter(workers_in_Staff_room, "ligal")
 })
 
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+function addWorkerToRoom(worker, room) {
+    const roomCard = document.getElementById(room).querySelector("div.cards-continer")
+    const divWorker = document.createElement("div");
+    divWorker.className = "  w-auto d-flex  p-0  gap-1 justify-content-between  bg-light rounded   border";
+    document.getElementById(room).classList.remove("bg-danger")
+    divWorker.innerHTML = `
+        <img src="${worker.photourl}" 
+             width="38" height="38" class="rounded-circle">
+        <div>
+            <small class="fs-12 text-muted   " >${worker.fullname}</small>
+            <small class="text-muted d-block fs-10">${worker.role}</small>
+        </div>
+        <button class=" bg-light   border-0 rounded  text-danger p-0 m-0" onclick="removeWorkerFromRoom(${worker.id})">
+           x
+        </button`
+    roomCard.appendChild(divWorker)
+}
 
 
 function affiche_worker_filter_title(title) {
@@ -191,7 +209,10 @@ function affiche_worker_filter_title(title) {
                    X
                 </button>       
              `
-   
+    carttitile.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON')
+            document.getElementById('model-filter-staff').classList.toggle('d-none')
+    })
     return carttitile
 }
 function affiche_worker_filter(worker) {
@@ -205,7 +226,10 @@ function affiche_worker_filter(worker) {
                             alt="preview" />
                     </div>
                     <div class="flex-grow-1">
-                      
+                        <div class=" p-1 fs-12  d-flex flex-column ">
+                            <label>${worker.fullname} </label>
+                            <label class="">${worker.role} </label>
+                        </div>
 
                     </div>
             `
