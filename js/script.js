@@ -38,10 +38,8 @@ document.getElementById("add-exp").addEventListener('click', function () {
                                 <span class="flex-grow-1">date start</span> <span class="flex-grow-1"> date end</span>
                             </div>
                             <div class="d-flex justify-content-between gap-1">
-                                <input type="date" placeholder="Années (ex: 2019-2022)"
-                                    class="flex-grow-1 border p-1 rounded  " name="date_start" required>
-                                <input type="date" placeholder="Années (ex: 2019-2022)"
-                                    class="flex-grow-1 border rounded" name="date_end" required>
+                                <input type="date"  class="flex-grow-1 border p-1 rounded " name="date_start" required>
+                                <input type="date" class="flex-grow-1 border rounded" name="date_end" required>
                             </div>
                         </div>
     `
@@ -56,73 +54,135 @@ document.getElementById('experiences-container').addEventListener('click', (e) =
 })
 
 
+document.getElementById('btn').addEventListener('click', () => {
+
+    const name_input = document.getElementById('model-add-staff').querySelector('input[name="name"]');
+    const role_input = document.getElementById('model-add-staff').querySelector('select[name="role"]');
+    const phone_input = document.getElementById('model-add-staff').querySelector('input[name="phone"]');
+    const email_input = document.getElementById('model-add-staff').querySelector('input[name="email"]');
+    const photo_input = document.getElementById('model-add-staff').querySelector('input[name="photo"]');
+    const experiences = document.getElementById('experiences-container').querySelectorAll('div.experience');
+
+    /////validation des champs 
+    let isValid = true
+    const nameRegex = /^[A-Za-z\s]{3,13}$/;
+    const emailRegex = /^[a-zA-Z0-9_.-]{3,15}@[a-zA-Z]{3,8}\.[a-zA-Z]{2,5}$/;
+    const phoneRegex = /^0[5-7]{1}[0-9]{8}$/;
 
 
-// document.getElementById('btn').addEventListener('click', () => {
-
-//     const name_input = document.getElementById('model-add-staff').querySelector('input[name="name"]');
-//     const role_input = document.getElementById('model-add-staff').querySelector('select[name="role"]');
-//     const phone_input = document.getElementById('model-add-staff').querySelector('input[name="phone"]');
-//     const email_input = document.getElementById('model-add-staff').querySelector('input[name="email"]');
-//     const photo_input = document.getElementById('model-add-staff').querySelector('input[name="photo"]');
-//     const experiences = document.getElementById('experiences-container').querySelectorAll('div.experience');
-
-//     /////validation des champs 
-//     let isValid = true
-//     const nameRegex = /^[A-Za-z\s]+$/;
-//     const emailRegex = /^[a-zA-Z0-9_.-]{3,15}@[a-zA-Z]{3,8}\.[a-zA-Z]{2,5}$/;
-//     const phoneRegex = /^0[67]{1}[0-9]{8}$/;
-//     // const phoneRegex = /^+$/;
-
-//     if (name_input && !nameRegex.test(name_input.value.trim())) {
-//         alert('name invalid');
-//         name_input.focus();
-//         return
-//     }
-//     if (role_input.value.trim() == "") {
-//         alert('select role');
-//         role_input.focus();
-//         return
-//     }
-//     if (phone_input && !phoneRegex.test(phone_input.value.trim())) {
-//         alert('phone invalid');
-//         phone_input.focus();
-//         return
-//     }
-//     if (email_input && !emailRegex.test(email_input.value.trim())) {
-//         alert('email invalid');
-//         email_input.focus();
-//         return
-//     }
+    if (!nameRegex.test(name_input.value.trim())) {
+        alert('Name invalid: Must be 3-13 letters and spaces');
+        name_input.focus();
+        return
+    }
+    if (role_input.value.trim() == "") {
+        alert('Please select a role.');
+        role_input.focus();
+        return
+    }
+    if (!phoneRegex.test(phone_input.value.trim())) {
+        alert('Phone invalid: Must be 05/06/07 followed by 8 digits');
+        phone_input.focus();
+        return
+    }
+    if (!emailRegex.test(email_input.value.trim())) {
+        alert('Email invalid: Must be in the format user@domain.com');
+        email_input.focus();
+        return
+    }
 
 
 
-//     let experiencestable = []
-//     if (experiences) {
-//         experiences.forEach(element => {
-//             let poste = element.querySelector('input[name="postes"]')
-//             let entreprise = element.querySelector('input[name="entreprises"]')
-//             let date_start = element.querySelector('input[name="date_start"]')
-//             let date_end = element.querySelector('input[name="date_end"]')
-//             // validation/ regExp
-//             const posteRegex = /^[A-Za-z\s]{3,20}$/;
-//             const entrepriseRegex = /^[A-Za-z0-9\s]{3,20}$/;
-//             const date_startRegex = /^(199[0-9]|200[0-9]|201[0-9]|202[0-5])$/
-//             const date_endRegex = /^(199[0-9]|200[0-9]|201[0-9]|202[0-5])$/;
-//             experiencestable.push(createExp(poste.value, entreprise.value, date_start.value, date_end.value))
-//         });
-//     }
-//     if (isValid) {
-//         let newStaff = createStaff(name_input.value, role_input.value, phone_input.value, email_input.value, photo_input.value, experiencestable)
-//         let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
-//         staff_table.push(newStaff)
-//         localStorage.setItem("staff_table", JSON.stringify(staff_table))
-//         document.getElementById('model-add-staff').querySelector('form').reset();
-//         document.getElementById("model-add-staff").classList.toggle('d-none')
-//         show_Unassigned_Staff_list()
-//     }
-// })
+    let experiencestable = []
+    if (experiences) {
+        experiences.forEach(element => {
+            let poste = element.querySelector('input[name="postes"]')
+            let entreprise = element.querySelector('input[name="entreprises"]')
+            let date_start = element.querySelector('input[name="date_start"]')
+            let date_end = element.querySelector('input[name="date_end"]')
+            // validation/ regExp pour experiences
+            const posteRegex = /^[A-Za-z\s]{3,30}$/;
+            const entrepriseRegex = /^[A-Za-z0-9\s]{3,30}$/;
 
+            if (poste && !posteRegex.test(poste.value.trim())) {
+                alert('Job Title invalid: Must be 3-30 letters ');
+                poste.focus();
+                isValid = false
+                return
+            }
+            if (entreprise && !entrepriseRegex.test(entreprise.value.trim())) {
+                alert('Company Name invalid: Must be 3-30 letters,')
+                isValid = false
+                return
+            }
+            if (date_start == "" || date_end == "") {
+                alert('Start date and end date are required for each experience.')
+                isValid = false
+                return
+            }
+
+            const startDate = new Date(date_start.value);
+            const endDate = new Date(date_end.value);
+
+
+            if (startDate > endDate) {
+                alert('input date invalid: Start date must be before or equal to end date.');
+                isValid = false
+                return
+            }
+
+
+            if (isValid) {
+                experiencestable.push({
+                    poste: poste.value,
+                    entreprise: entreprise.value,
+                    date_start: startDate.getTime(),
+                    date_end: endDate.getTime()
+                });
+            }
+
+        });
+    }
+
+    if (isValid && experiencestable.length > 1) {
+        for (let i = 0; i < experiencestable.length; i++) {
+            const expA = experiencestable[i];
+            for (let j = i + 1; j < experiencestable.length; j++) {
+                const expB = experiencestable[j];
+
+                if (expA.date_start <= expB.date_end && expB.date_start <= expA.date_end) {
+                    alert(`Date invalid: Experiences for "${expA.poste}" (${new Date(expA.date_start).getFullYear()}-${new Date(expA.date_end).getFullYear()}) and "${expB.poste}" (${new Date(expB.date_start).getFullYear()}-${new Date(expB.date_end).getFullYear()}) are overlapping!`);
+                    isValid = false;
+                    break;
+                }
+            }
+            if (!isValid) {
+                break;
+            }
+        }
+    }
+
+
+
+    if (isValid === true) {
+        const finalExperiences = experiencestable.map(exp => ({
+            poste: exp.poste,
+            entreprise: exp.entreprise,
+            date_start: new Date(exp.date_start).getFullYear() + "/" + new Date(exp.date_start).getMonth(),
+            date_end: new Date(exp.date_end).getFullYear() + "/" + new Date(exp.date_end).getMonth()
+        }));
+
+
+        let newStaff = createStaff(name_input.value, role_input.value, phone_input.value, email_input.value, photo_input.value, finalExperiences) // Using finalExperiences instead of calling createExp on the spot
+
+        let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
+        staff_table.push(newStaff)
+        localStorage.setItem("staff_table", JSON.stringify(staff_table))
+        document.getElementById('model-add-staff').querySelector('form').reset();
+        document.getElementById("model-add-staff").classList.toggle('d-none')
+        show_Unassigned_Staff_list()
+    }
+})
 document.getElementById("btn-add-staff").addEventListener('click', () => {
     document.getElementById("model-add-staff").classList.toggle('d-none')
 })
@@ -150,10 +210,10 @@ document.getElementById('Unassigned-Staff-list').addEventListener('click', (e) =
 })
 
 document.querySelector('div.grid').addEventListener('click', (e) => {
-    let elelmentclick = e.target 
+    let elelmentclick = e.target
     let worker_assign = elelmentclick.closest('div.worker-asigne-to-room')
-    if (elelmentclick.tagName === 'BUTTON' )
-       return
+    if (elelmentclick.tagName === 'BUTTON')
+        return
 
     let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
     let index = Number(worker_assign.getAttribute('id'))
