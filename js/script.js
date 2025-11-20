@@ -319,7 +319,6 @@ function assign_Staff_to_Carte() {
 }
 
 
-
 function show_staff(staff) {
     return `  <div class="card  border-0  w-25 ">
             <div class="  d-flex justify-content-end">
@@ -359,10 +358,22 @@ function show_staff(staff) {
                 <h6 class=" fs-12 mb-3">💼 Experiences </h6>
 
                 <div class="list-group fs-12 list-group-flush  scroll-y ">
-                    
+                    ${showExp(staff.experiences)}
                      
                 </div>
 
             </div>
         </div>`
+}
+
+function showExp(experiences) {
+    return experiences.map((experience) => {
+        return ` <div class="list-group-item d-flex justify-content-between align-items-start px-0">
+                        <div>
+                            <span class="fw-bold d-block">${experience.poste}</span>
+                            <small class="text-muted">${experience.entreprise}</small>
+                        </div>
+                        <span class="badge bg-secondary mt-1">${experience.date_start} - ${experience.date_end}</span>
+                    </div>`
+    });
 }
