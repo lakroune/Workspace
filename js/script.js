@@ -1,5 +1,5 @@
 show_Unassigned_Staff_list()
-
+assign_Staff_to_Carte()
 document.getElementById('close-modal-add').addEventListener('click', (e) => {
     let elementClick = e.target
 
@@ -265,7 +265,24 @@ function affiche_worker_filter(worker) {
 
 
 
+document.getElementById('Unassigned-Staff-list').addEventListener('click', (e) => {
+    let card = e.target.closest('div.card');
+    if (!card) return;
 
+    let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
+    let index = Number(card.getAttribute('id'))
+    let div = document.createElement('div')
+    div.className = "   d-flex  justify-content-center align-items-center  bg-dark   bg-opacity-75   vh-100 w-100 d-flex position-absolute  modelshowstaff"
+    div.innerHTML = show_staff(staff_table[index])
+    document.querySelector('body').appendChild(div)
+
+    document.querySelector("div.modelshowstaff").addEventListener('click', (e) => {
+        let buttuobclick = e.target
+        if (buttuobclick.tagName === "BUTTON")
+            document.querySelector("div.modelshowstaff").remove()
+    });
+
+})
 
 
 function affiche_list_worker_filter(whoker_in_room, title) {
