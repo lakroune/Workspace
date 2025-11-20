@@ -84,7 +84,7 @@ function show_Unassigned_Staff_list() {
     let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
     document.getElementById("Unassigned-Staff-list").innerHTML = ""
     staff_table.forEach(staff => {
-        if (staff.etat === "NotYet") { 
+        if (staff.etat === "NotYet") {
             let staff_card = document.createElement("div")
             staff_card.className = "card m-1 p-0 bg-light"
             staff_card.setAttribute('id', staff.id)
@@ -274,4 +274,46 @@ function affiche_list_worker_filter(whoker_in_room, title) {
     whoker_in_room.forEach(worker => {
         document.getElementById('model-filter-staff').append(affiche_worker_filter(worker))
     });
+}
+
+
+function assign_Staff_to_Carte() {
+    const staff_table = JSON.parse(localStorage.getItem("staff_table")) || [];
+    reset_Staff_to_Carte()
+    countWorkerFromRoom("ArchivesRoom", "Archives_room")
+    countWorkerFromRoom("StaffRoom", "Staff_room")
+    countWorkerFromRoom("SecurityRoom", "Security_room")
+    countWorkerFromRoom("ServerRoom", "Server_room")
+    countWorkerFromRoom("ConferenceRoom", "Conference_room")
+    countWorkerFromRoom("Reception", "Reception_room")
+    staff_table.forEach(staff => {
+        switch (staff.etat) {
+            case "Conference_room":
+                addWorkerToRoom(staff, "ConferenceRoom")
+                break;
+
+            case "Reception_room":
+                addWorkerToRoom(staff, "Reception");
+                break;
+
+            case "Server_room":
+                addWorkerToRoom(staff, "ServerRoom");
+                break;
+
+            case "Security_room":
+                addWorkerToRoom(staff, "SecurityRoom");
+                break;
+
+            case "Staff_room":
+                addWorkerToRoom(staff, "StaffRoom");
+                break;
+
+            case "Archives_room":
+                addWorkerToRoom(staff, "ArchivesRoom");
+                break;
+
+        }
+
+    });
+
 }
