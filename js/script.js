@@ -292,7 +292,11 @@ function affiche_list_worker_filter(whoker_in_room, title) {
         document.getElementById('model-filter-staff').append(affiche_worker_filter(worker))
     });
 }
-
+function countWorkerFromRoom(room, etat) {
+    let staff_table = JSON.parse(localStorage.getItem("staff_table")) || [];
+    let contWorker = staff_table.filter(elelment => elelment.etat === etat) || [];
+    document.getElementById(room).querySelector("span.count").textContent = contWorker.length;
+}
 
 function assign_Staff_to_Carte() {
     const staff_table = JSON.parse(localStorage.getItem("staff_table")) || [];
