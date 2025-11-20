@@ -317,3 +317,52 @@ function assign_Staff_to_Carte() {
     });
 
 }
+
+
+
+function show_staff(staff) {
+    return `  <div class="card  border-0  w-25 ">
+            <div class="  d-flex justify-content-end">
+                <button class=" fs-4 p-2 bg-light   border-0 rounded  text-danger p-0 m-0">
+                    x
+                </button>
+            </div>
+            <div class="p-2 ">
+
+                <div class="d-flex justify-content-start gap-3 align-items-center  p-1 border-bottom ">
+
+
+                    <img src="${staff.photourl}" width="100" height="100"
+                        class="rounded-circle border border-danger border-4" alt="Photo staff">
+
+
+                    <div class=" d-flex flex-column justify-content-center align-items-center fs-12">
+                        <span class=" fw-bold">${staff.fullname}</span>
+                        <p class="text-muted">${staff.role}</p>
+                    </div>
+                </div>
+
+                <h6 class=" text-secondary mt-1  fs-12">📞 CONTACT</h6>
+                <div class="row mb-4">
+
+                    <div class="col-md-6 mb-2 fs-12">
+                        <span class="d-block fw-bold ">PHONE</span>
+                        <span class="text-dark">${staff.phone}</span>
+                    </div>
+
+                    <div class="col-6 mb-2 fs-12">
+                        <span class="d-block fw-bold ">EMAIL</span>
+                        <span class="text-dark"> ${staff.email}</span>
+                    </div>
+                </div>
+
+                <h6 class=" fs-12 mb-3">💼 Experiences </h6>
+
+                <div class="list-group fs-12 list-group-flush  scroll-y ">
+                    
+                     
+                </div>
+
+            </div>
+        </div>`
+}
