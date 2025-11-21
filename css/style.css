@@ -47,35 +47,52 @@
  #ArchivesRoom {
      grid-row: 8/ 13;
      grid-column: 10/ 13;
-
+     background-image: url("../images/archives.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
  }
 
  #StaffRoom {
      grid-row: 8/ 13;
      grid-column: 7/ 10;
+     background-image: url("../images/staffroom.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
  }
 
  #SecurityRoom {
      grid-row: 1 / 6;
      grid-column: 10 / 13;
+     background-image: url("../images/secrity.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
  }
 
  #ServerRoom {
      grid-row: 1 / 6;
      grid-column: 7/10;
+     background-image: url("../images/serverRoom.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
  }
 
  #Reception {
      grid-row: 1/ 6;
      grid-column: 1 / 6;
+     background-image: url("../images/reception.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
  }
 
  #ConferenceRoom {
      grid-row: 6 / 13;
      grid-column: 1 / 6;
+     background-image: url("../images/ConferenceRoom.png");
+     background-size: cover;
+     background-blend-mode: color;
  }
 
- @media (max-width: 992px) {
+ @media (max-width: 991px) {
      .scroll {
          display: flex;
          height: 80px;
@@ -95,7 +112,6 @@
          height: 75vh;
          padding: 10px;
      }
-
 
  }
 
@@ -117,11 +133,62 @@
 
  }
 
-
-
  input:hover,
  input:focus,
  select:focus {
      transform: scale(1.03);
      outline-color: blueviolet;
+ }
+
+ @media (max-width: 678px) {
+     .scroll {
+         display: flex;
+         height: 80px;
+         overflow-y: hidden;
+         overflow-x: auto;
+     }
+
+     .card {
+         flex-shrink: 0;
+         margin: 0;
+         padding: 0;
+     }
+
+     .grid {
+         display: grid;
+         width: 98vw;
+         height: 75vh;
+         padding: 10px;
+     }
+
+
+     #ArchivesRoom {
+         grid-row: 1/ 5;
+         grid-column: 1/ 6;
+     }
+
+     #StaffRoom {
+         grid-row: 1/ 5;
+         grid-column: 7/ 13;
+     }
+
+     #SecurityRoom {
+         grid-row: 5/ 10;
+         grid-column: 1/ 6;
+     }
+
+     #ServerRoom {
+         grid-row: 5/ 10;
+         grid-column: 7/ 13;
+     }
+
+     #Reception {
+         grid-row: 10/ 15;
+         grid-column: 1/ 6;
+     }
+
+     #ConferenceRoom {
+         grid-row: 10/ 15;
+         grid-column: 7/ 13;
+     }
  }

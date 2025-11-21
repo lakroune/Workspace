@@ -1,8 +1,8 @@
-let maxArchives_room = 4
+let maxArchives_room = 3
 let maxConference_room = 10
-let maxReception_room = 6
+let maxReception_room = 5
 let maxStaff_room = 4
-let maxSecurity_room = 3
+let maxSecurity_room = 2
 let maxServer_room = 3
 
 assign_Staff_to_Carte()
@@ -79,7 +79,7 @@ document.getElementById('btn').addEventListener('click', () => {
     let isValid = true
     const nameRegex = /^[A-Za-z\s]{3,30}$/;
     const emailRegex = /^[a-zA-Z0-9_.-]{3,20}@[a-zA-Z]{3,15}\.[a-zA-Z]{2,6}$/;
-    const phoneRegex = /^212[5-7]{1}[0-9]{8}$/;
+    const phoneRegex = /^\+212[5-7]{1}[0-9]{8}$/;
 
 
 
@@ -96,7 +96,7 @@ document.getElementById('btn').addEventListener('click', () => {
     }
 
     if (!phoneRegex.test(phone_input.value.trim())) {
-        alert('Phone invalid: Must be 05/06/07 followed by 8 digits');
+        alert('Phone invalid: Must be +212 then 05/06/07 followed by 8 digits');
         phone_input.focus();
         return
     }
@@ -314,8 +314,8 @@ function addWorkerToRoom(worker, room) {
     const roomCard = document.getElementById(room).querySelector("div.cards-continer")
     const divWorker = document.createElement("div");
     divWorker.className = "  w-auto d-flex  p-1 position-relative  gap-1 justify-content-between align-items-center  bg-success rounded-circle  worker-asigne-to-room border";
-    divWorker.id = worker.id 
-    divWorker.setAttribute("role","button")
+    divWorker.id = worker.id
+    divWorker.setAttribute("role", "button")
     document.getElementById(room).classList.remove("bg-danger")
     divWorker.innerHTML = `
         <img src="${worker.photourl}" 
@@ -426,7 +426,7 @@ function show_staff(staff) {
                     </div>
                 </div>
 
-                <h6 class=" text-secondary    fs-12">📞 CONTACT</h6>
+                <h6 class=" text-secondary  pt-2      fs-12">📞 CONTACT</h6>
                 <div class="border-bottom  mb-4">
 
                     <div class=" mb-2 fs-12">
@@ -443,7 +443,7 @@ function show_staff(staff) {
                 <h6 class=" fs-12 p-1 text-muted fw-bold  border-bottom">💼 EXPERIENCES </h6>
 
                 <div class="list-group fs-12 list-group-flush  scroll-y ">
-                    ${showExp(staff.experiences)}
+                    ${showExp(staff.experiences) ? showExp(staff.experiences) : emptyExp()}
                      
                 </div>
 
@@ -462,6 +462,14 @@ function showExp(experiences) {
                     </div>`
     }).join('');
 }
+function emptyExp() {
+    return ` <div class="list-group-item d-flex justify-content-between align-items-start p-2   ">
+                         
+                           <i class="bi bi-briefcase" style="font-size: 30px; color: #adb5bd;"></i>
+                            <small class="text-muted p-1 w-75 text-center fs-12">No professional experience has been recorded for this worker yet. </small>
+                     
+                          </div>`
+}
 
 
 
@@ -471,7 +479,7 @@ document.getElementById('add_workers_Archives_room').addEventListener('click', f
     if (count_worker_assignto_this_room.length < maxArchives_room) {
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Archives_room')
-        let workers_in_archives_room = workers.filter(worker => worker.role !== "Cleaning Staffssssss" && worker.etat === 'NotYet')
+        let workers_in_archives_room = workers.filter(worker => worker.etat === 'NotYet' && worker.role === "Manager")
         affiche_list_worker_filter(workers_in_archives_room, "Workers Authorized to  Archives Room ")
     }
     else {
@@ -498,12 +506,12 @@ document.getElementById('add_workers_Reception_room').addEventListener('click', 
     let workers = JSON.parse(localStorage.getItem("staff_table"))
     let count_worker_assignto_this_room = workers.filter(worker => worker.etat === 'Reception_room')
 
-    if (count_worker_assignto_this_room.length < maxReception_room) { // Maximum of 3 workers check
+    if (count_worker_assignto_this_room.length < maxReception_room) {
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Reception_room')
         let workers_in_Reception_room = workers.filter(worker =>
             worker.etat === 'NotYet' &&
-            (worker.role === "Manager" || worker.role === "Receptionist" || worker.role === "Cleaning Staff")
+            (worker.role !== "IT Technician" && worker.role !== "Security Officer" && worker.role !== "Other")
         )
         affiche_list_worker_filter(workers_in_Reception_room, "Workers Authorized to  Reception Room")
     }
@@ -520,7 +528,7 @@ document.getElementById('add_workers_Server_room').addEventListener('click', fun
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Server_room')
         let workers_in_Server_room = workers.filter(worker =>
             worker.etat === 'NotYet' &&
-            (worker.role === "Manager" || worker.role === "IT Technician" || worker.role === "Cleaning staff")
+            (worker.role !== "Security Officer" && worker.role !== "Receptionist"  && worker.role !== "Other")
         )
         affiche_list_worker_filter(workers_in_Server_room, "Workers Authorized to  Server Room")
     }
@@ -536,7 +544,7 @@ document.getElementById('add_workers_Security_room').addEventListener('click', f
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Security_room')
         let workers_in_Security_room = workers.filter(worker =>
             worker.etat === 'NotYet' &&
-            (worker.role === "Manager" || worker.role === "Security Officer" || worker.role === "Cleaning staff")
+            (worker.role !== "Receptionist" && worker.role !== "IT Technician" && worker.role !== "Other")
         )
         affiche_list_worker_filter(workers_in_Security_room, "Workers Authorized to  Security Room")
     }
