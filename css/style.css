@@ -1,0 +1,194 @@
+ .fs-12 {
+     font-size: 12px;
+ }
+
+ .fs-10 {
+     font-size: 10px;
+ }
+
+ .fs-14 {
+     font-size: 14px;
+ }
+
+ .w-4p {
+     max-width: 400px;
+ }
+
+ .w-3p {
+     min-width: 320px;
+ }
+
+ .scroll-y {
+     height: 200px;
+     overflow-y: auto;
+     overflow-x: hidden;
+ }
+
+ .scroll {
+     height: 80%;
+     overflow-y: auto;
+     overflow-x: hidden;
+ }
+
+
+ .grid {
+     display: grid;
+     grid-template-columns: repeat(12, 1fr);
+     grid-template-rows: repeat(12, 1fr);
+     gap: 1px;
+     background-image: url("https://wallpapers.com/images/high/grey-wood-background-xkm2d2jo03l2j1ik.webp");
+     background-size: cover;
+     width: 74vw;
+     height: 90vh;
+     padding: 30px;
+ }
+
+
+ #ArchivesRoom {
+     grid-row: 8/ 13;
+     grid-column: 10/ 13;
+     background-image: url("https://lakroune.space/uploads/6922cd81198fb_archives.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
+ }
+
+ #StaffRoom {
+     grid-row: 8/ 13;
+     grid-column: 7/ 10;
+     background-image: url("https://lakroune.space/uploads/6922d4b2edfc6_staffroom.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
+ }
+
+ #SecurityRoom {
+     grid-row: 1 / 6;
+     grid-column: 10 / 13;
+     background-image: url("https://lakroune.space/uploads/6922ce97c429c_secrity.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
+ }
+ 
+ #ServerRoom {
+     grid-row: 1 / 6;
+     grid-column: 7/10;
+     background-image: url("https://lakroune.space/uploads/6922d4000c8d9_serverRoom.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
+ }
+
+ #Reception {
+     grid-row: 1/ 6;
+     grid-column: 1 / 6;
+     background-image: url("https://lakroune.space/uploads/6922d4beefc0e_reception.png");
+     background-size: cover;
+     background-blend-mode: color-dodge;
+ }
+
+ #ConferenceRoom {
+     grid-row: 6 / 13;
+     grid-column: 1 / 6;
+     background-image: url("https://lakroune.space/uploads/6922d26b913b7_ConferenceRoom.png");
+     background-size: cover;
+     background-blend-mode: color;
+ }
+
+ @media (max-width: 991px) {
+     .scroll {
+         display: flex;
+         height: 80px;
+         overflow-y: hidden;
+         overflow-x: auto;
+     }
+
+     .card {
+         flex-shrink: 0;
+         margin: 0;
+         padding: 0;
+     }
+
+     .grid {
+         display: grid;
+         width: 98vw;
+         height: 75vh;
+         padding: 10px;
+     }
+
+ }
+
+ .worker-asigne-to-room:hover {
+     transform: scale(1.02);
+     transition: 0.3s ease;
+ }
+
+
+ .worker-asigne-to-room:hover .btn-close {
+     opacity: 1;
+     transition: 0.3s ease;
+ }
+
+ #Unassigned-Staff-list>.card:hover,
+ #model-filter-staff .worker:hover {
+     transform: scale(1.06);
+     transition: 0.1s ease;
+
+ }
+
+ input:hover,
+ input:focus,
+ select:focus {
+     transform: scale(1.03);
+     outline-color: blueviolet;
+ }
+
+ @media (max-width: 678px) {
+     .scroll {
+         display: flex;
+         height: 80px;
+         overflow-y: hidden;
+         overflow-x: auto;
+     }
+
+     .card {
+         flex-shrink: 0;
+         margin: 0;
+         padding: 0;
+     }
+
+     .grid {
+         display: grid;
+         width: 98vw;
+         height: 75vh;
+         padding: 10px;
+     }
+
+
+     #ArchivesRoom {
+         grid-row: 1/ 5;
+         grid-column: 1/ 6;
+     }
+
+     #StaffRoom {
+         grid-row: 1/ 5;
+         grid-column: 7/ 13;
+     }
+
+     #SecurityRoom {
+         grid-row: 5/ 10;
+         grid-column: 1/ 6;
+     }
+
+     #ServerRoom {
+         grid-row: 5/ 10;
+         grid-column: 7/ 13;
+     }
+
+     #Reception {
+         grid-row: 10/ 15;
+         grid-column: 1/ 6;
+     }
+
+     #ConferenceRoom {
+         grid-row: 10/ 15;
+         grid-column: 7/ 13;
+     }
+ }
