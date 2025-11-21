@@ -7,6 +7,7 @@ let maxServer_room = 2
 
 assign_Staff_to_Carte()
 show_Unassigned_Staff_list()
+
 let countExp = 2
 photodefault = "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
 document.getElementById('close-modal-add').addEventListener('click', (e) => {
@@ -300,10 +301,11 @@ function addWorkerToRoom(worker, room) {
     roomCard.appendChild(divWorker)
 }
 
-function countWorkerFromRoom(room, etat) {
+function countWorkerFromRoom(room, etat, maxworker) {
     let staff_table = JSON.parse(localStorage.getItem("staff_table")) || [];
     let contWorker = staff_table.filter(elelment => elelment.etat === etat) || [];
     document.getElementById(room).querySelector("span.count").textContent = contWorker.length;
+    document.getElementById(room).querySelector("span.maxworker").textContent = maxworker;
 }
 
 function removeWorkerFromRoom(idworker) {
@@ -339,12 +341,12 @@ function reset_Staff_to_Carte() {
 function assign_Staff_to_Carte() {
     const staff_table = JSON.parse(localStorage.getItem("staff_table")) || [];
     reset_Staff_to_Carte()
-    countWorkerFromRoom("ArchivesRoom", "Archives_room")
-    countWorkerFromRoom("StaffRoom", "Staff_room")
-    countWorkerFromRoom("SecurityRoom", "Security_room")
-    countWorkerFromRoom("ServerRoom", "Server_room")
-    countWorkerFromRoom("ConferenceRoom", "Conference_room")
-    countWorkerFromRoom("Reception", "Reception_room")
+    countWorkerFromRoom("ArchivesRoom", "Archives_room", maxArchives_room)
+    countWorkerFromRoom("StaffRoom", "Staff_room", maxStaff_room)
+    countWorkerFromRoom("SecurityRoom", "Security_room", maxSecurity_room)
+    countWorkerFromRoom("ServerRoom", "Server_room", maxServer_room)
+    countWorkerFromRoom("ConferenceRoom", "Conference_room", maxConference_room)
+    countWorkerFromRoom("Reception", "Reception_room", maxReception_room)
     staff_table.forEach(staff => {
         switch (staff.etat) {
             case "Conference_room":
@@ -447,7 +449,7 @@ document.getElementById('add_workers_Archives_room').addEventListener('click', f
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Archives_room')
         let workers_in_archives_room = workers.filter(worker => worker.role !== "Cleaning Staffssssss" && worker.etat === 'NotYet')
-        affiche_list_worker_filter(workers_in_archives_room, "Assign worker to Archives room ")
+        affiche_list_worker_filter(workers_in_archives_room, "Assign Worker to Archives Room ")
     }
     else {
         alert("The Archives room is full. Maximum of " + maxArchives_room + " workers allowed.")
@@ -461,7 +463,7 @@ document.getElementById('add_workers_Conference_room').addEventListener('click',
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Conference_room')
         let workers_in_conference_room = workers.filter(worker => worker.etat === 'NotYet')
-        affiche_list_worker_filter(workers_in_conference_room, "Assign Staff to Room")
+        affiche_list_worker_filter(workers_in_conference_room, "Assign Worker to Conference Room")
     }
     else {
         alert("The Conference room is full. Maximum of " + maxConference_room + " workers allowed.")
@@ -480,7 +482,7 @@ document.getElementById('add_workers_Reception_room').addEventListener('click', 
             worker.etat === 'NotYet' &&
             (worker.role === "Manager" || worker.role === "Receptionist" || worker.role === "Cleaning Staff")
         )
-        affiche_list_worker_filter(workers_in_Reception_room, "Assign Staff to Room")
+        affiche_list_worker_filter(workers_in_Reception_room, "Assign Worker to Reception Room")
     }
     else {
         alert("The Reception room is full. Maximum of " + maxReception_room + " workers allowed.")
@@ -497,7 +499,7 @@ document.getElementById('add_workers_Server_room').addEventListener('click', fun
             worker.etat === 'NotYet' &&
             (worker.role === "Manager" || worker.role === "IT Technician" || worker.role === "Cleaning staff")
         )
-        affiche_list_worker_filter(workers_in_Server_room, "Assign Staff to Room")
+        affiche_list_worker_filter(workers_in_Server_room, "Assign Worker to Server Room")
     }
     else {
         alert("The Server room is full. Maximum of " + maxServer_room + " workers allowed.")
@@ -513,7 +515,7 @@ document.getElementById('add_workers_Security_room').addEventListener('click', f
             worker.etat === 'NotYet' &&
             (worker.role === "Manager" || worker.role === "Security Officer" || worker.role === "Cleaning staff")
         )
-        affiche_list_worker_filter(workers_in_Security_room, "Assign Staff to Room")
+        affiche_list_worker_filter(workers_in_Security_room, "Assign Worker to Security Room")
     }
     else {
         alert("The Security room is full. Maximum of " + maxSecurity_room + " workers allowed.")
@@ -527,7 +529,7 @@ document.getElementById('add_workers_Staff_room').addEventListener('click', func
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Staff_room')
         let workers_in_Staff_room = workers.filter(worker => worker.etat === 'NotYet')
-        affiche_list_worker_filter(workers_in_Staff_room, "ligal")
+        affiche_list_worker_filter(workers_in_Staff_room, "Assign Worker To Staff Room")
     }
     else {
         alert("The Staff room is full. Maximum of " + maxStaff_room + " workers allowed.")
