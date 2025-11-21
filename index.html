@@ -15,7 +15,7 @@
 
     <aside class=" col-lg-3 col-12  staff-area p-1 m-0 border-end">
         <h4 class=" text-center">Unassigned Staff</h4>
-        <button class="  w-100 border rounded     " id="btn-add-staff"> <i class="bi bi-person-fill-add"></i> Add New
+        <button class="  w-100 border  fw-bold" id="btn-add-staff"> <i class="bi bi-person-fill-add"></i> Add New
             Worker</button>
 
         <div id="Unassigned-Staff-list" class="scroll d-flex   d-lg-block">
@@ -27,10 +27,11 @@
         <div class="grid">
 
             <div id="ConferenceRoom" class=" border  text-white room">
-                <div class="d-flex justify-content-between p-1 fw-bold "> <span class="fs-12 fw-bold">Conference Room</span>
+                <div class="d-flex justify-content-between p-1 fw-bold "> <span class="fs-12 fw-bold">Conference
+                        Room</span>
                     <p class="fs-12"><span class="count">0</span>/<span class="maxworker">0</span></p>
                     <div class="bg-success justify-content-center align-items-center rounded d-inline p-1">
-                        <i role="button"  id="add_workers_Conference_room" class="bi bi-person-fill-add"></i>
+                        <i role="button" id="add_workers_Conference_room" class="bi bi-person-fill-add"></i>
                     </div>
                 </div>
                 <div class="cards-continer row m-0 gap-3 justify-content-center  align-items-end">
@@ -48,7 +49,7 @@
                         <i role="button" id="add_workers_Reception_room" class="bi bi-person-fill-add"></i>
                     </div>
                 </div>
-                <div class="cards-continer row m-0 gap-3 justify-content-center align-items-end">
+                <div class="cards-continer row m-0 gap-3 justify-content-center align-items-end ">
 
                 </div>
             </div>
@@ -70,7 +71,8 @@
 
 
             <div id="SecurityRoom" class="border  text-white bg-danger bg-opacity-50 room">
-                <div class="d-flex justify-content-between p-1 fw-bold"> <span class="fs-12 fw-bold">Security Room</span>
+                <div class="d-flex justify-content-between p-1 fw-bold"> <span class="fs-12 fw-bold">Security
+                        Room</span>
                     <p class="fs-12"><span class="count">0</span>/<span class="maxworker">0</span></p>
                     <div class="bg-success justify-content-center align-items-center rounded d-inline p-1">
                         <i role="button" id="add_workers_Security_room" class="bi bi-person-fill-add"></i>
@@ -94,10 +96,11 @@
                 </div>
             </div>
 
-            
+
 
             <div id="ArchivesRoom" class="border  text-white bg-danger bg-opacity-50 room">
-                <div class="d-flex justify-content-between p-1 fw-bold"> <span class="fs-12 fw-bold">Archives Room</span>
+                <div class="d-flex justify-content-between p-1 fw-bold"> <span class="fs-12 fw-bold">Archives
+                        Room</span>
                     <p class="fs-12"><span class="count">0</span>/<span class="maxworker">0</span></p>
                     <div class="bg-success justify-content-center align-items-center rounded d-inline p-1">
                         <i role="button" id="add_workers_Archives_room" role="button" class="bi bi-person-fill-add"></i>
@@ -112,11 +115,12 @@
 
 
     <!-- model add staff -->
-    <div id="model-add-staff" class="bg-light rounded-4 d-none position-absolute top-0  mt-2 p-2     ">
-        <div class=" d-flex  justify-content-between p-1border-bottom  ">
-            <button type="button" id="btn" class="  bg-success text-white  border rounded fs-12 fw-bold p-1"> +Add New
-                Worker</button>
-            <button type="button" id="close-modal-add" class="btn-close   btn-danger"></button>
+    <div id="model-add-staff" class="bg-light  d-none position-absolute top-0    p-2     ">
+        <div class=" d-flex justify-content-between align-items-center p-2 border-bottom bg-light ">
+            <button type="button" id="btn" class="  bg-success text-white fw-bold border  bg-opacity-75 p-1 "> Save
+                Worker <i class="bi bi-bookmark"></i>
+            </button>
+            <button type="button" id="close-modal-add" class="btn-close "></button>
         </div>
         <div class=" p-2">
             <form id="employeeForm" class=" ">
@@ -147,21 +151,22 @@
                 </div>
                 <div class=" fs-12 p-2 d-flex flex-column  p-2">
                     <label>Phone</label>
-                    <input class="  border p-1 rounded" name="phone" required>
+                    <input type="tel" class="  border p-1 rounded" name="phone" required>
                 </div>
                 <div class="fs-12 p-2 d-flex flex-column">
                     <label>Email</label>
-                    <input name="email" class="border p-1 rounded" required>
+                    <input type="email" name="email" class="border p-1 rounded" required>
                 </div>
-                <div class="fs-12 p-2 border-bottom">
+                <div class="fs-12 p-2 border-bottom d-flex flex-column w-100">
                     <label class="d-block">Photo (URL)</label>
 
-                    <input type="text" id="input-photo-preview" name="photo" class="border p-1 rounded w-75"
+                    <input type="text" id="input-photo-preview" name="photo" class="border p-1 rounded  "
                         placeholder="https://example.com/photo.jpg" required>
                 </div>
                 <div class="d-flex justify-content-between fs-12 p-2 gap-3 border-bottom ">
                     <span>Experiences professionnelles</span>
-                    <button type="button" id="add-exp" class="border p-1 rounded">+ add experience</button>
+                    <button type="button" id="add-exp" class="border p-1 bg-warning text-white rounded fw-bold"><i
+                            class="bi bi-journal-bookmark"></i> add experience</button>
                 </div>
                 <div id="experiences-container" class="scroll-y  ">
 
@@ -202,6 +207,7 @@
     <div id="model-filter-staff" class="bg-white rounded-1 d-none position-absolute    w-3p top-0  h-100    ">
 
     </div>
+    
 
     <script src="js/script.js"></script>
 </body>

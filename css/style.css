@@ -6,12 +6,16 @@
      font-size: 10px;
  }
 
+ .fs-14 {
+     font-size: 14px;
+ }
+
  .w-4p {
-     width: 400px;
+     max-width: 400px;
  }
 
  .w-3p {
-     min-width: 320px; 
+     min-width: 320px;
  }
 
  .scroll-y {
@@ -93,4 +97,31 @@
      }
 
 
+ }
+
+ .worker-asigne-to-room:hover {
+     transform: scale(1.02);
+     transition: 0.3s ease;
+ }
+
+
+ .worker-asigne-to-room:hover .btn-close {
+     opacity: 1;
+     transition: 0.3s ease;
+ }
+
+ #Unassigned-Staff-list>.card:hover,
+ #model-filter-staff .worker:hover {
+     transform: scale(1.06);
+     transition: 0.1s ease;
+
+ }
+
+
+
+ input:hover,
+ input:focus,
+ select:focus {
+     transform: scale(1.03);
+     outline-color: blueviolet;
  }

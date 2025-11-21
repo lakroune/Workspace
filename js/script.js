@@ -1,9 +1,9 @@
-let maxArchives_room = 2
+let maxArchives_room = 4
 let maxConference_room = 10
-let maxReception_room = 3
-let maxStaff_room = 8
+let maxReception_room = 6
+let maxStaff_room = 4
 let maxSecurity_room = 3
-let maxServer_room = 2
+let maxServer_room = 3
 
 assign_Staff_to_Carte()
 show_Unassigned_Staff_list()
@@ -280,7 +280,7 @@ function show_Unassigned_Staff_list() {
             let staff_card = document.createElement("div")
             staff_card.className = "card m-1 p-0 bg-light"
             staff_card.setAttribute('id', staff.id)
-            staff_card.innerHTML = ` <div class="card-body m-0 p-1 d-flex  gap-4 align-items-center" >
+            staff_card.innerHTML = ` <div role="button" class="card-body m-0 p-1 d-flex  gap-4 align-items-center "  >
                                     <img src=" ${staff.photourl} " width="44" class="rounded-circle" alt="Photo">
                                     <div class=" p-0 m-0 ">
                                         <span class=" d-block fs-12"> ${staff.fullname}</span>
@@ -313,15 +313,16 @@ function show_Unassigned_Staff_list() {
 function addWorkerToRoom(worker, room) {
     const roomCard = document.getElementById(room).querySelector("div.cards-continer")
     const divWorker = document.createElement("div");
-    divWorker.className = "  w-auto d-flex  p-0  gap-1 justify-content-between align-items-center  bg-light rounded  worker-asigne-to-room border";
-    divWorker.id = worker.id
+    divWorker.className = "  w-auto d-flex  p-1 position-relative  gap-1 justify-content-between align-items-center  bg-success rounded-circle  worker-asigne-to-room border";
+    divWorker.id = worker.id 
+    divWorker.setAttribute("role","button")
     document.getElementById(room).classList.remove("bg-danger")
     divWorker.innerHTML = `
         <img src="${worker.photourl}" 
-             width="38" height="38" class="rounded-circle border bg-warning border-2">
-        <button class="  bg-light  align-self-start   d-flex align-items-start  border-0 rounded  text-danger p-0  " onclick="removeWorkerFromRoom(${worker.id})">
-            x
+             width="50" height="50" class="rounded-1 border bg-warning border-2">
+        <button  type="button" class="bg-opacity-100  btn-close bg-danger    align-self-start   d-flex align-items-start  border-0   text-danger p-0   position-absolute end-0  top-0" style="font-size: 13px;  " onclick="removeWorkerFromRoom(${worker.id})">
         </button>`
+
     roomCard.appendChild(divWorker)
 }
 
@@ -406,42 +407,40 @@ function assign_Staff_to_Carte() {
 
 
 function show_staff(staff) {
-    return `  <div class="card  bg-ligth border-0  w-4p   ">
-            <div class="  d-flex justify-content-end">
-                <button class=" fs-4 p-2 bg-light  border-0 rounded  text-danger p-0 m-0">
-                    x
-                </button>
+    return `  <div class="card  bg-ligth border-0    w-4p  w-3p   ">
+            <div class="  d-flex justify-content-between align-items-center p-2 border-bottom bg-light">            
+             <span class="fw-bold"> Worker Details</span> 
+            <button type="button" class="btn-close" ></button>
             </div>
-            <div class="p-2 ">
+            <div class="p-3 ">
 
-                <div class="d-flex justify-content-start gap-3 align-items-center  p-1 border-bottom ">
+                <div class="d-flex justify-content-start gap-3 align-items-center  p-2 border-bottom ">
+                    <div class="rounded-circle bg-warning p-1 ">
+                        <img src="${staff.photourl}" width="100" height="100" class="rounded-4 border border-4" alt="Photo staff">
+                    </div>
 
-
-                    <img src="${staff.photourl}" width="100" height="100"
-                        class="rounded-circle border border-4" alt="Photo staff">
-
-
-                    <div class=" d-flex flex-column m-2 justify-content-center align-items-center fs-12">
+                    <div class=" d-flex flex-column m-2 justify-content-center align-items-start ">
                         <span class=" fw-bold">${staff.fullname}</span>
-                        <p class="text-muted">${staff.role}</p>
+                        <i class="text-muted fw-bold fs-12">${staff.role}</i>
+                        <i class="text-muted   fs-12"> ${staff.etat !== "NotYet" ? " assigned to " + staff.etat : " Not assigned yet"}</i>
                     </div>
                 </div>
 
-                <h6 class=" text-secondary mt-1  fs-12">📞 CONTACT</h6>
-                <div class="row mb-4">
+                <h6 class=" text-secondary    fs-12">📞 CONTACT</h6>
+                <div class="border-bottom  mb-4">
 
-                    <div class="col-md-6 mb-2 fs-12">
+                    <div class=" mb-2 fs-12">
                         <span class="d-block fw-bold ">PHONE</span>
                         <span class="text-dark">${staff.phone}</span>
                     </div>
 
-                    <div class="col-6 mb-2 fs-12">
+                    <div class=" mb-2 fs-12">
                         <span class="d-block fw-bold ">EMAIL</span>
                         <span class="text-dark"> ${staff.email}</span>
                     </div>
                 </div>
 
-                <h6 class=" fs-12 mb-3">💼 Experiences </h6>
+                <h6 class=" fs-12 p-1 text-muted fw-bold  border-bottom">💼 EXPERIENCES </h6>
 
                 <div class="list-group fs-12 list-group-flush  scroll-y ">
                     ${showExp(staff.experiences)}
@@ -454,10 +453,10 @@ function show_staff(staff) {
 
 function showExp(experiences) {
     return experiences.map((experience) => {
-        return ` <div class="list-group-item d-flex justify-content-between align-items-start px-0">
+        return ` <div class="list-group-item d-flex justify-content-between align-items-start p-1 border-bottom">
                         <div>
-                            <span class="fw-bold d-block">${experience.poste}</span>
-                            <small class="text-muted">${experience.entreprise}</small>
+                            <span class="fw-bold d-block"> ${experience.poste}</span>
+                            <small class="text-muted p-1">${experience.entreprise}</small>
                         </div>
                         <span class="badge bg-secondary mt-1">${experience.date_start} - ${experience.date_end}</span>
                     </div>`
@@ -473,7 +472,7 @@ document.getElementById('add_workers_Archives_room').addEventListener('click', f
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Archives_room')
         let workers_in_archives_room = workers.filter(worker => worker.role !== "Cleaning Staffssssss" && worker.etat === 'NotYet')
-        affiche_list_worker_filter(workers_in_archives_room, "Assign Worker to Archives Room ")
+        affiche_list_worker_filter(workers_in_archives_room, "Workers Authorized to  Archives Room ")
     }
     else {
         alert("The Archives room is full. Maximum of " + maxArchives_room + " workers allowed.")
@@ -487,7 +486,7 @@ document.getElementById('add_workers_Conference_room').addEventListener('click',
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Conference_room')
         let workers_in_conference_room = workers.filter(worker => worker.etat === 'NotYet')
-        affiche_list_worker_filter(workers_in_conference_room, "Assign Worker to Conference Room")
+        affiche_list_worker_filter(workers_in_conference_room, "Workers Authorized to  Conference Room")
     }
     else {
         alert("The Conference room is full. Maximum of " + maxConference_room + " workers allowed.")
@@ -506,7 +505,7 @@ document.getElementById('add_workers_Reception_room').addEventListener('click', 
             worker.etat === 'NotYet' &&
             (worker.role === "Manager" || worker.role === "Receptionist" || worker.role === "Cleaning Staff")
         )
-        affiche_list_worker_filter(workers_in_Reception_room, "Assign Worker to Reception Room")
+        affiche_list_worker_filter(workers_in_Reception_room, "Workers Authorized to  Reception Room")
     }
     else {
         alert("The Reception room is full. Maximum of " + maxReception_room + " workers allowed.")
@@ -523,7 +522,7 @@ document.getElementById('add_workers_Server_room').addEventListener('click', fun
             worker.etat === 'NotYet' &&
             (worker.role === "Manager" || worker.role === "IT Technician" || worker.role === "Cleaning staff")
         )
-        affiche_list_worker_filter(workers_in_Server_room, "Assign Worker to Server Room")
+        affiche_list_worker_filter(workers_in_Server_room, "Workers Authorized to  Server Room")
     }
     else {
         alert("The Server room is full. Maximum of " + maxServer_room + " workers allowed.")
@@ -539,7 +538,7 @@ document.getElementById('add_workers_Security_room').addEventListener('click', f
             worker.etat === 'NotYet' &&
             (worker.role === "Manager" || worker.role === "Security Officer" || worker.role === "Cleaning staff")
         )
-        affiche_list_worker_filter(workers_in_Security_room, "Assign Worker to Security Room")
+        affiche_list_worker_filter(workers_in_Security_room, "Workers Authorized to  Security Room")
     }
     else {
         alert("The Security room is full. Maximum of " + maxSecurity_room + " workers allowed.")
@@ -553,7 +552,7 @@ document.getElementById('add_workers_Staff_room').addEventListener('click', func
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Staff_room')
         let workers_in_Staff_room = workers.filter(worker => worker.etat === 'NotYet')
-        affiche_list_worker_filter(workers_in_Staff_room, "Assign Worker To Staff Room")
+        affiche_list_worker_filter(workers_in_Staff_room, "Workers Authorized to  Staff Room")
     }
     else {
         alert("The Staff room is full. Maximum of " + maxStaff_room + " workers allowed.")
@@ -564,16 +563,16 @@ document.getElementById('add_workers_Staff_room').addEventListener('click', func
 
 function affiche_list_worker_filter(whoker_in_room, title) {
     document.getElementById('model-filter-staff').innerHTML = "";
-    document.getElementById('model-filter-staff').append(affiche_worker_filter_title(title));
+    document.getElementById('model-filter-staff').appendChild(affiche_worker_filter_title(title));
 
 
     if (whoker_in_room.length > 0) {
         let roomFullContainer = document.createElement('div');
         roomFullContainer.className = " scroll-y h-75 p-3";
         whoker_in_room.forEach(worker => {
-            roomFullContainer.append(affiche_worker_filter(worker));
+            roomFullContainer.appendChild(affiche_worker_filter(worker));
         });
-        document.getElementById('model-filter-staff').append(roomFullContainer)
+        document.getElementById('model-filter-staff').appendChild(roomFullContainer)
     } else {
         let roomEmptyContainer = document.createElement('div');
         roomEmptyContainer.className = "text-center p-3";
@@ -582,10 +581,9 @@ function affiche_list_worker_filter(whoker_in_room, title) {
             <div class="mb-3">
                 <i class="bi bi-people" style="font-size: 90px; color: #ced4da;"></i> 
             </div>
-            <p class="text-muted mb-2">
-                No workers found matching the filter criteria.
+            <p class="text-muted mb-2 fs-14">
+             No workers are authorized to enter the room
             </p>
-            
         `;
 
         document.getElementById('model-filter-staff').append(roomEmptyContainer);
@@ -624,7 +622,7 @@ function affiche_worker_filter_title(title) {
     let carttitile = document.createElement('div');
     carttitile.className = "d-flex justify-content-between align-items-center p-3 border-bottom bg-light ";
     carttitile.innerHTML =
-        ` <span class="">${title}</span> 
+        ` <span class="fs-14">${title}</span> 
           <button type="button" class="btn-close" ></button>
         `;
     carttitile.addEventListener('click', (e) => {
@@ -637,6 +635,7 @@ function affiche_worker_filter_title(title) {
 }
 function affiche_worker_filter(worker) {
     let cartworker = document.createElement('div')
+    cartworker.setAttribute("role", "button")
     cartworker.className = "d-flex bg-light  border justify-content-center align-items-center m-1 rounded p-1 worker "
     cartworker.id = worker.id
     cartworker.innerHTML =
@@ -645,7 +644,7 @@ function affiche_worker_filter(worker) {
                         <img id="photo-preview" width="44" height="44" class="rounded-5" src="${worker.photourl}"
                             alt="preview" />
                     </div>
-                    <div class="flex-grow-1">
+                    <div class="flex-grow-1" >
                         <div class=" p-1 fs-12  d-flex flex-column ">
                             <label>${worker.fullname} </label>
                             <label class="">${worker.role} </label>
