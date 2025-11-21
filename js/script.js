@@ -1,7 +1,14 @@
+let maxArchives_room = 2
+let maxConference_room = 2
+let maxReception_room = 2
+let maxStaff_room = 2
+let maxSecurity_room = 2
+let maxServer_room = 2
+
 assign_Staff_to_Carte()
 show_Unassigned_Staff_list()
 let countExp = 2
-
+photodefault = "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
 document.getElementById('close-modal-add').addEventListener('click', (e) => {
     let elementClick = e.target
     elementClick.closest('div.position-absolute').classList.toggle('d-none')
@@ -186,7 +193,7 @@ document.getElementById('btn').addEventListener('click', () => {
 document.getElementById("btn-add-staff").addEventListener('click', () => {
     document.getElementById("model-add-staff").classList.toggle('d-none')
 })
- 
+
 
 
 
@@ -246,7 +253,7 @@ function createStaff(name, role, phone, email, photourl, experiences) {
         role: role,
         phone: phone,
         email: email,
-        photourl: photourl!=""?photourl:"https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg",
+        photourl: photourl != "" ? photourl : photodefault,
         etat: "NotYet",
         experiences: experiences
     }
@@ -433,57 +440,99 @@ function showExp(experiences) {
 
 
 
-
 document.getElementById('add_workers_Archives_room').addEventListener('click', function () {
-    document.getElementById('model-filter-staff').classList.remove('d-none')
-    document.getElementById('model-filter-staff').setAttribute('data-room', 'Archives_room')
     let workers = JSON.parse(localStorage.getItem("staff_table"))
-    let workers_in_archives_room = workers.filter(worker => worker.role !== "Cleaning Staffssssss" && worker.etat === 'NotYet')
-    affiche_list_worker_filter(workers_in_archives_room, "Assign Staff to Room")
+    let count_worker_assignto_this_room = workers.filter(worker => worker.etat === 'Archives_room')
+    if (count_worker_assignto_this_room.length < maxArchives_room) {
+        document.getElementById('model-filter-staff').classList.remove('d-none')
+        document.getElementById('model-filter-staff').setAttribute('data-room', 'Archives_room')
+        let workers_in_archives_room = workers.filter(worker => worker.role !== "Cleaning Staffssssss" && worker.etat === 'NotYet')
+        affiche_list_worker_filter(workers_in_archives_room, "Assign worker to Archives room ")
+    }
+    else {
+        alert("The Archives room is full. Maximum of " + maxArchives_room + " workers allowed.")
+    }
 })
 
 document.getElementById('add_workers_Conference_room').addEventListener('click', function () {
-    document.getElementById('model-filter-staff').classList.remove('d-none')
-    document.getElementById('model-filter-staff').setAttribute('data-room', 'Conference_room')
     let workers = JSON.parse(localStorage.getItem("staff_table"))
-    let workers_in_conference_room = workers.filter(worker => worker.etat === 'NotYet')
-    affiche_list_worker_filter(workers_in_conference_room, "Assign Staff to Room")
+    let count_worker_assignto_this_room = workers.filter(worker => worker.etat === 'Conference_room')
+    if (count_worker_assignto_this_room.length < maxConference_room) {
+        document.getElementById('model-filter-staff').classList.remove('d-none')
+        document.getElementById('model-filter-staff').setAttribute('data-room', 'Conference_room')
+        let workers_in_conference_room = workers.filter(worker => worker.etat === 'NotYet')
+        affiche_list_worker_filter(workers_in_conference_room, "Assign Staff to Room")
+    }
+    else {
+        alert("The Conference room is full. Maximum of " + maxConference_room + " workers allowed.")
+    }
 })
-
 
 
 document.getElementById('add_workers_Reception_room').addEventListener('click', function () {
-    document.getElementById('model-filter-staff').classList.remove('d-none')
-    document.getElementById('model-filter-staff').setAttribute('data-room', 'Reception_room')
     let workers = JSON.parse(localStorage.getItem("staff_table"))
-    let workers_in_Reception_room = workers.filter(worker => worker.etat === 'NotYet' && (worker.role === "Manager" || worker.role === "Receptionist"||worker.role === "Cleaning Staff"))
-    affiche_list_worker_filter(workers_in_Reception_room, "Assign Staff to Room")
+    let count_worker_assignto_this_room = workers.filter(worker => worker.etat === 'Reception_room')
+
+    if (count_worker_assignto_this_room.length < maxReception_room) { // Maximum of 3 workers check
+        document.getElementById('model-filter-staff').classList.remove('d-none')
+        document.getElementById('model-filter-staff').setAttribute('data-room', 'Reception_room')
+        let workers_in_Reception_room = workers.filter(worker =>
+            worker.etat === 'NotYet' &&
+            (worker.role === "Manager" || worker.role === "Receptionist" || worker.role === "Cleaning Staff")
+        )
+        affiche_list_worker_filter(workers_in_Reception_room, "Assign Staff to Room")
+    }
+    else {
+        alert("The Reception room is full. Maximum of " + maxReception_room + " workers allowed.")
+    }
 })
+
 document.getElementById('add_workers_Server_room').addEventListener('click', function () {
-    document.getElementById('model-filter-staff').classList.remove('d-none')
-    document.getElementById('model-filter-staff').setAttribute('data-room', 'Server_room')
     let workers = JSON.parse(localStorage.getItem("staff_table"))
-    let workers_in_Server_room = workers.filter(worker => worker.etat === 'NotYet' && (worker.role === "Manager" || worker.role === "IT Technician" || worker.role === "Cleaning staff"))
-    affiche_list_worker_filter(workers_in_Server_room, "Assign Staff to Room")
+    let count_worker_assignto_this_room = workers.filter(worker => worker.etat === 'Server_room')
+    if (count_worker_assignto_this_room.length < maxServer_room) {
+        document.getElementById('model-filter-staff').classList.remove('d-none')
+        document.getElementById('model-filter-staff').setAttribute('data-room', 'Server_room')
+        let workers_in_Server_room = workers.filter(worker =>
+            worker.etat === 'NotYet' &&
+            (worker.role === "Manager" || worker.role === "IT Technician" || worker.role === "Cleaning staff")
+        )
+        affiche_list_worker_filter(workers_in_Server_room, "Assign Staff to Room")
+    }
+    else {
+        alert("The Server room is full. Maximum of " + maxServer_room + " workers allowed.")
+    }
 })
-
 document.getElementById('add_workers_Security_room').addEventListener('click', function () {
-    document.getElementById('model-filter-staff').classList.remove('d-none')
-    document.getElementById('model-filter-staff').setAttribute('data-room', 'Security_room')
     let workers = JSON.parse(localStorage.getItem("staff_table"))
-    let workers_in_Security_room = workers.filter(worker => worker.etat === 'NotYet' && (worker.role === "Manager" || worker.role === "Security Officer" || worker.role === "Cleaning staff"))
-    affiche_list_worker_filter(workers_in_Security_room, "Assign Staff to Room")
-
+    let count_worker_assignto_this_room = workers.filter(worker => worker.etat === 'Security_room')
+    if (count_worker_assignto_this_room.length < maxSecurity_room) {
+        document.getElementById('model-filter-staff').classList.remove('d-none')
+        document.getElementById('model-filter-staff').setAttribute('data-room', 'Security_room')
+        let workers_in_Security_room = workers.filter(worker =>
+            worker.etat === 'NotYet' &&
+            (worker.role === "Manager" || worker.role === "Security Officer" || worker.role === "Cleaning staff")
+        )
+        affiche_list_worker_filter(workers_in_Security_room, "Assign Staff to Room")
+    }
+    else {
+        alert("The Security room is full. Maximum of " + maxSecurity_room + " workers allowed.")
+    }
 })
 
 document.getElementById('add_workers_Staff_room').addEventListener('click', function () {
-    document.getElementById('model-filter-staff').classList.remove('d-none')
-    document.getElementById('model-filter-staff').setAttribute('data-room', 'Staff_room')
     let workers = JSON.parse(localStorage.getItem("staff_table"))
-    let workers_in_Staff_room = workers.filter(worker => worker.etat === 'NotYet')
-    affiche_list_worker_filter(workers_in_Staff_room, "ligal")
+    let count_worker_assignto_this_room = workers.filter(worker => worker.etat === 'Staff_room')
+    if (count_worker_assignto_this_room.length < maxStaff_room) {
+        document.getElementById('model-filter-staff').classList.remove('d-none')
+        document.getElementById('model-filter-staff').setAttribute('data-room', 'Staff_room')
+        let workers_in_Staff_room = workers.filter(worker => worker.etat === 'NotYet')
+        affiche_list_worker_filter(workers_in_Staff_room, "ligal")
+    }
+    else {
+        alert("The Staff room is full. Maximum of " + maxStaff_room + " workers allowed.")
+    }
 })
-
 
 
 

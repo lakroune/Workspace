@@ -6,11 +6,12 @@
      font-size: 10px;
  }
 
- .w-4p{
-    width: 400px;
+ .w-4p {
+     width: 400px;
  }
- .w-3p{
-    width: 300px;
+
+ .w-3p {
+     width: 300px;
  }
 
  .scroll-y {
@@ -73,12 +74,12 @@
  @media (max-width: 992px) {
      .scroll {
          display: flex;
-         height: 70px;
+         height: 80px;
          overflow-y: hidden;
          overflow-x: auto;
      }
 
-      .card {
+     .card {
          flex-shrink: 0;
          margin: 0;
          padding: 0;
@@ -86,15 +87,10 @@
 
      .grid {
          display: grid;
-         grid-template-columns: repeat(12, 1fr);
-         grid-template-rows: repeat(12, 1fr);
-         gap: 1px;
-         background-image: url("https://wallpapers.com/images/high/grey-wood-background-xkm2d2jo03l2j1ik.webp");
-         background-size: cover;
          width: 98vw;
          height: 75vh;
          padding: 10px;
      }
 
- 
+
  }
