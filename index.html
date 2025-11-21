@@ -11,21 +11,19 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="d-lg-flex  vh-100 p-0 m-0">
+<body class="d-lg-flex w-100 vh-100 p-0 m-0 ">
 
-    <aside class="col-lg-3 col-12  staff-area p-3 border-end">
+    <aside class=" col-lg-3 col-12  staff-area p-0 m-0 border-end">
         <h4 class=" text-center">Unassigned Staff</h4>
         <button class="  w-100 border rounded     " id="btn-add-staff"> <i class="bi bi-person-fill-add"></i> Add New
             Worker</button>
 
-        <div id="Unassigned-Staff-list" class="scroll-y  h-75">
+        <div id="Unassigned-Staff-list" class="scroll d-flex   d-lg-block">
         </div>
-
-
     </aside>
 
-    <div class="col-lg-9 col-12 p-1">
-        <h4 class="mb-4 ">Workspace</h4>
+    <div class="col-lg-9 col-12 p-1 ">
+        <h4 class=" text-center ">Workspace</h4>
         <div class="grid">
 
             <div id="ConferenceRoom" class=" border  text-white room">
@@ -114,7 +112,7 @@
 
 
     <!-- model add staff -->
-    <div id="model-add-staff" class="bg-light rounded-4 d-none position-absolute mt-2 p-2 w-25   ">
+    <div id="model-add-staff" class="bg-light rounded-4 d-none position-absolute top-0  mt-2 p-2     ">
         <div class=" d-flex  justify-content-between p-1border-bottom  ">
             <button type="button" id="btn" class="  bg-success text-white  border rounded fs-12 fw-bold p-1"> +Add New
                 Worker</button>
@@ -122,7 +120,7 @@
         </div>
         <div class=" p-2">
             <form id="employeeForm" class=" ">
-                <div class="d-flex justify-content-center align-items-center border-bottom">
+                <div class="d-flex justify-content-center align-items-center gap-3 border-bottom">
                     <div>
                         <img id="photo-preview" width="80" height="80" class="rounded-circle border  border-4"
                             src="https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
@@ -161,7 +159,7 @@
                     <input type="url" id="input-photo-preview" name="photo" class="border p-1 rounded w-75"
                         placeholder="https://example.com/photo.jpg">
                 </div>
-                <div class="d-flex justify-content-between fs-12 p-1 border-bottom ">
+                <div class="d-flex justify-content-between fs-12 p-2 gap-3 border-bottom ">
                     <span>Experiences professionnelles</span>
                     <button type="button" id="add-exp" class="border p-1 rounded">+ add experience</button>
                 </div>
@@ -179,19 +177,17 @@
                             </button>
                         </div>
                         <div class=" d-flex flex-column  fs-12 gap-1 ">
-                            <label for="poste">Poste</label>
-                            <input type="text" placeholder="Poste" class=" border p-1 rounded " name="postes" required>
-                            <label for="entreprise"> Entreprise</label>
-                            <input type="text" placeholder="Entreprise" class="border p-1 rounded " name="entreprises"
+                            <label for="poste">Job</label>
+                            <input type="text" placeholder="Developer" class=" border p-1 rounded " name="postes" required>
+                            <label for="entreprise"> Company Name </label>
+                            <input type="text" placeholder="Youcode " class="border p-1 rounded " name="entreprises"
                                 required>
                             <div class="d-flex justify-content-between gap-1">
                                 <span class="flex-grow-1">date start</span> <span class="flex-grow-1"> date end</span>
                             </div>
                             <div class="d-flex justify-content-between gap-1">
-                                <input type="date" placeholder="Années (ex: 2019-2022)"
-                                    class="flex-grow-1 border p-1 rounded  " name="date_start" required>
-                                <input type="date" placeholder="Années (ex: 2019-2022)"
-                                    class="flex-grow-1 border rounded" name="date_end" required>
+                                <input type="date" class="flex-grow-1 border p-1 rounded  " name="date_start" required>
+                                <input type="date" class="flex-grow-1 border p-1  rounded" name="date_end" required>
                             </div>
                         </div>
                     </div>
@@ -202,7 +198,7 @@
     </div>
     <!-- model affich info staff -->
 
-    <div id="model-filter-staff" class="bg-white rounded-4 d-none position-absolute mt-2 p-2 w-25 h-100    ">
+    <div id="model-filter-staff" class="bg-white rounded-1 d-none position-absolute    w-3p top-0  h-100    ">
 
     </div>
 

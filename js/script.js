@@ -29,10 +29,10 @@ document.getElementById("add-exp").addEventListener('click', function () {
                             </button>
                         </div>
                         <div class=" d-flex flex-column  fs-12 gap-1 ">
-                            <label for="poste">Poste</label>
-                            <input type="text" placeholder="Poste" class=" border p-1 rounded " name="postes" required>
-                            <label for="entreprise"> Entreprise</label>
-                            <input type="text" placeholder="Entreprise" class="border p-1 rounded " name="entreprises"
+                            <label for="poste">Job</label>
+                            <input type="text" placeholder="Developer" class=" border p-1 rounded " name="postes" required>
+                            <label for="entreprise"> Company Name </label>
+                            <input type="text" placeholder="Youcode" class="border p-1 rounded " name="entreprises"
                                 required>
                             <div class="d-flex justify-content-between gap-1">
                                 <span class="flex-grow-1">date start</span> <span class="flex-grow-1"> date end</span>
@@ -173,7 +173,7 @@ document.getElementById('btn').addEventListener('click', () => {
         }));
 
 
-        let newStaff = createStaff(name_input.value, role_input.value, phone_input.value, email_input.value, photo_input.value, finalExperiences) // Using finalExperiences instead of calling createExp on the spot
+        let newStaff = createStaff(name_input.value, role_input.value, phone_input.value, email_input.value, photo_input.value, finalExperiences)
 
         let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
         staff_table.push(newStaff)
@@ -186,7 +186,7 @@ document.getElementById('btn').addEventListener('click', () => {
 document.getElementById("btn-add-staff").addEventListener('click', () => {
     document.getElementById("model-add-staff").classList.toggle('d-none')
 })
-
+ 
 
 
 
@@ -197,7 +197,7 @@ document.getElementById('Unassigned-Staff-list').addEventListener('click', (e) =
     let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
     let index = Number(card.getAttribute('id'))
     let div = document.createElement('div')
-    div.className = "   d-flex  justify-content-center align-items-center  bg-dark   bg-opacity-75   vh-100 w-100 d-flex position-absolute  modelshowstaff"
+    div.className = "   d-flex  justify-content-center align-items-center  bg-dark   bg-opacity-75  top-0  vh-100 w-100 d-flex position-absolute  modelshowstaff"
     div.innerHTML = show_staff(staff_table[index])
     document.querySelector('body').appendChild(div)
 
@@ -218,7 +218,7 @@ document.querySelector('div.grid').addEventListener('click', (e) => {
     let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
     let index = Number(worker_assign.getAttribute('id'))
     let div = document.createElement('div')
-    div.className = "   d-flex  justify-content-center align-items-center  bg-dark   bg-opacity-75   vh-100 w-100 d-flex position-absolute  modelshowstaff"
+    div.className = "   d-flex  justify-content-center align-items-center  bg-dark   bg-opacity-75  top-0  vh-100 w-100 d-flex position-absolute  modelshowstaff"
     div.innerHTML = show_staff(staff_table[index])
     document.querySelector('body').appendChild(div)
 
@@ -246,7 +246,7 @@ function createStaff(name, role, phone, email, photourl, experiences) {
         role: role,
         phone: phone,
         email: email,
-        photourl: photourl,
+        photourl: photourl!=""?photourl:"https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg",
         etat: "NotYet",
         experiences: experiences
     }
@@ -264,7 +264,7 @@ function show_Unassigned_Staff_list() {
             staff_card.setAttribute('id', staff.id)
             staff_card.innerHTML = ` <div class="card-body m-0 p-1 d-flex  gap-4 align-items-center" >
                                     <img src=" ${staff.photourl} " width="44" class="rounded-circle" alt="Photo">
-                                    <div class="  ">
+                                    <div class=" p-0 m-0 ">
                                         <span class=" d-block fs-12"> ${staff.fullname}</span>
                                         <span class="  text-muted   fw-bold fs-10"> ${staff.role}</span>
                                     </div>
@@ -373,9 +373,9 @@ function assign_Staff_to_Carte() {
 
 
 function show_staff(staff) {
-    return `  <div class="card  bg-ligth border-0  w-25 ">
+    return `  <div class="card  bg-ligth border-0  w-4p   ">
             <div class="  d-flex justify-content-end">
-                <button class=" fs-4 p-2 bg-light   border-0 rounded  text-danger p-0 m-0">
+                <button class=" fs-4 p-2 bg-light  border-0 rounded  text-danger p-0 m-0">
                     x
                 </button>
             </div>
@@ -388,7 +388,7 @@ function show_staff(staff) {
                         class="rounded-circle border border-4" alt="Photo staff">
 
 
-                    <div class=" d-flex flex-column justify-content-center align-items-center fs-12">
+                    <div class=" d-flex flex-column m-2 justify-content-center align-items-center fs-12">
                         <span class=" fw-bold">${staff.fullname}</span>
                         <p class="text-muted">${staff.role}</p>
                     </div>
@@ -438,7 +438,7 @@ document.getElementById('add_workers_Archives_room').addEventListener('click', f
     document.getElementById('model-filter-staff').classList.remove('d-none')
     document.getElementById('model-filter-staff').setAttribute('data-room', 'Archives_room')
     let workers = JSON.parse(localStorage.getItem("staff_table"))
-    let workers_in_archives_room = workers.filter(worker => worker.role === "Manager" && worker.etat === 'NotYet')
+    let workers_in_archives_room = workers.filter(worker => worker.role !== "Cleaning Staffssssss" && worker.etat === 'NotYet')
     affiche_list_worker_filter(workers_in_archives_room, "Assign Staff to Room")
 })
 
@@ -456,7 +456,7 @@ document.getElementById('add_workers_Reception_room').addEventListener('click', 
     document.getElementById('model-filter-staff').classList.remove('d-none')
     document.getElementById('model-filter-staff').setAttribute('data-room', 'Reception_room')
     let workers = JSON.parse(localStorage.getItem("staff_table"))
-    let workers_in_Reception_room = workers.filter(worker => worker.etat === 'NotYet' && (worker.role === "Manager" || worker.role === "Receptionist"))
+    let workers_in_Reception_room = workers.filter(worker => worker.etat === 'NotYet' && (worker.role === "Manager" || worker.role === "Receptionist"||worker.role === "Cleaning Staff"))
     affiche_list_worker_filter(workers_in_Reception_room, "Assign Staff to Room")
 })
 document.getElementById('add_workers_Server_room').addEventListener('click', function () {
