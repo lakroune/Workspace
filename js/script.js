@@ -460,7 +460,7 @@ function showExp(experiences) {
                         </div>
                         <span class="badge bg-secondary mt-1">${experience.date_start} - ${experience.date_end}</span>
                     </div>`
-    });
+    }).join('');
 }
 
 
