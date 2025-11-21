@@ -47,7 +47,7 @@
  #ArchivesRoom {
      grid-row: 8/ 13;
      grid-column: 10/ 13;
-     background-image: url("../images/archives.png");
+     background-image: url("https://lakroune.space/uploads/6922cd81198fb_archives.png");
      background-size: cover;
      background-blend-mode: color-dodge;
  }
@@ -55,7 +55,7 @@
  #StaffRoom {
      grid-row: 8/ 13;
      grid-column: 7/ 10;
-     background-image: url("../images/staffroom.png");
+     background-image: url("https://lakroune.space/uploads/6922d4b2edfc6_staffroom.png");
      background-size: cover;
      background-blend-mode: color-dodge;
  }
@@ -63,7 +63,7 @@
  #SecurityRoom {
      grid-row: 1 / 6;
      grid-column: 10 / 13;
-     background-image: url("../images/secrity.png");
+     background-image: url("https://lakroune.space/uploads/6922ce97c429c_secrity.png");
      background-size: cover;
      background-blend-mode: color-dodge;
  }
@@ -71,7 +71,7 @@
  #ServerRoom {
      grid-row: 1 / 6;
      grid-column: 7/10;
-     background-image: url("../images/serverRoom.png");
+     background-image: url("https://lakroune.space/uploads/6922d4000c8d9_serverRoom.png");
      background-size: cover;
      background-blend-mode: color-dodge;
  }
@@ -79,7 +79,7 @@
  #Reception {
      grid-row: 1/ 6;
      grid-column: 1 / 6;
-     background-image: url("../images/reception.png");
+     background-image: url("https://lakroune.space/uploads/6922d4beefc0e_reception.png");
      background-size: cover;
      background-blend-mode: color-dodge;
  }
@@ -87,7 +87,7 @@
  #ConferenceRoom {
      grid-row: 6 / 13;
      grid-column: 1 / 6;
-     background-image: url("../images/ConferenceRoom.png");
+     background-image: url("https://lakroune.space/uploads/6922d26b913b7_ConferenceRoom.png");
      background-size: cover;
      background-blend-mode: color;
  }
