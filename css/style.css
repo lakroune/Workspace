@@ -11,7 +11,7 @@
  }
 
  .w-3p {
-     width: 300px;
+     min-width: 320px; 
  }
 
  .scroll-y {

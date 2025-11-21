@@ -1,8 +1,8 @@
 let maxArchives_room = 2
-let maxConference_room = 2
-let maxReception_room = 2
-let maxStaff_room = 2
-let maxSecurity_room = 2
+let maxConference_room = 10
+let maxReception_room = 3
+let maxStaff_room = 8
+let maxSecurity_room = 3
 let maxServer_room = 2
 
 assign_Staff_to_Carte()
@@ -14,12 +14,16 @@ document.getElementById('close-modal-add').addEventListener('click', (e) => {
     let elementClick = e.target
     elementClick.closest('div.position-absolute').classList.toggle('d-none')
     document.getElementById('model-add-staff').querySelector('form').reset();
+    document.getElementById('photo-preview').src = photodefault
+
 })
 
 
 document.getElementById("input-photo-preview").addEventListener('keyup', function () {
     document.getElementById('photo-preview').src = document.getElementById("input-photo-preview").value
-
+    document.getElementById('photo-preview').onerror = () => {
+        document.getElementById('photo-preview').src = photodefault
+    }
 })
 
 
@@ -68,14 +72,16 @@ document.getElementById('btn').addEventListener('click', () => {
     const role_input = document.getElementById('model-add-staff').querySelector('select[name="role"]');
     const phone_input = document.getElementById('model-add-staff').querySelector('input[name="phone"]');
     const email_input = document.getElementById('model-add-staff').querySelector('input[name="email"]');
-    const photo_input = document.getElementById('model-add-staff').querySelector('input[name="photo"]');
+    const photo_input = document.getElementById('photo-preview')
     const experiences = document.getElementById('experiences-container').querySelectorAll('div.experience');
 
     /////validation des champs 
     let isValid = true
-    const nameRegex = /^[A-Za-z\s]{3,13}$/;
-    const emailRegex = /^[a-zA-Z0-9_.-]{3,15}@[a-zA-Z]{3,8}\.[a-zA-Z]{2,5}$/;
-    const phoneRegex = /^0[5-7]{1}[0-9]{8}$/;
+    const nameRegex = /^[A-Za-z\s]{3,30}$/;
+    const emailRegex = /^[a-zA-Z0-9_.-]{3,20}@[a-zA-Z]{3,15}\.[a-zA-Z]{2,6}$/;
+    const phoneRegex = /^212[5-7]{1}[0-9]{8}$/;
+
+
 
 
     if (!nameRegex.test(name_input.value.trim())) {
@@ -88,6 +94,7 @@ document.getElementById('btn').addEventListener('click', () => {
         role_input.focus();
         return
     }
+
     if (!phoneRegex.test(phone_input.value.trim())) {
         alert('Phone invalid: Must be 05/06/07 followed by 8 digits');
         phone_input.focus();
@@ -109,8 +116,8 @@ document.getElementById('btn').addEventListener('click', () => {
             let date_start = element.querySelector('input[name="date_start"]')
             let date_end = element.querySelector('input[name="date_end"]')
             // validation/ regExp pour experiences
-            const posteRegex = /^[A-Za-z\s]{3,30}$/;
-            const entrepriseRegex = /^[A-Za-z0-9\s]{3,30}$/;
+            const posteRegex = /^[A-Za-z0-9()\s]{3,30}$/;
+            const entrepriseRegex = /^[A-Za-z0-9(&"'|)/.\-\s]{3,30}$/;
 
             if (poste && !posteRegex.test(poste.value.trim())) {
                 alert('Job Title invalid: Must be 3-30 letters ');
@@ -181,13 +188,14 @@ document.getElementById('btn').addEventListener('click', () => {
         }));
 
 
-        let newStaff = createStaff(name_input.value, role_input.value, phone_input.value, email_input.value, photo_input.value, finalExperiences)
+        let newStaff = createStaff(name_input.value, role_input.value, phone_input.value, email_input.value, photo_input.src, finalExperiences)
 
         let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
         staff_table.push(newStaff)
         localStorage.setItem("staff_table", JSON.stringify(staff_table))
         document.getElementById('model-add-staff').querySelector('form').reset();
         document.getElementById("model-add-staff").classList.toggle('d-none')
+        document.getElementById('photo-preview').src = photodefault
         show_Unassigned_Staff_list()
     }
 })
@@ -265,8 +273,10 @@ function createStaff(name, role, phone, email, photourl, experiences) {
 function show_Unassigned_Staff_list() {
     let staff_table = JSON.parse(localStorage.getItem("staff_table")) || []
     document.getElementById("Unassigned-Staff-list").innerHTML = ""
+    let countWorkerunassaign = true
     staff_table.forEach(staff => {
         if (staff.etat === "NotYet") {
+
             let staff_card = document.createElement("div")
             staff_card.className = "card m-1 p-0 bg-light"
             staff_card.setAttribute('id', staff.id)
@@ -278,26 +288,40 @@ function show_Unassigned_Staff_list() {
                                     </div>
                                  </div> `
             document.getElementById("Unassigned-Staff-list").appendChild(staff_card)
+            countWorkerunassaign = false
         }
     });
+
+    if (countWorkerunassaign) {
+        let UnassignedEmptyContainer = document.createElement('div');
+        UnassignedEmptyContainer.className = "text-center p-3";
+
+        UnassignedEmptyContainer.innerHTML = `
+            <div class="mb-3">
+                <i class="bi bi-people" style="font-size: 90px; color: #ced4da;"></i> 
+            </div>
+            <p class="text-muted mb-2">
+                No workers found.
+            </p>
+            
+        `;
+        document.getElementById("Unassigned-Staff-list").appendChild(UnassignedEmptyContainer);
+    }
 }
+
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 function addWorkerToRoom(worker, room) {
     const roomCard = document.getElementById(room).querySelector("div.cards-continer")
     const divWorker = document.createElement("div");
-    divWorker.className = "  w-auto d-flex  p-0  gap-1 justify-content-between  bg-light rounded  worker-asigne-to-room border";
+    divWorker.className = "  w-auto d-flex  p-0  gap-1 justify-content-between align-items-center  bg-light rounded  worker-asigne-to-room border";
     divWorker.id = worker.id
     document.getElementById(room).classList.remove("bg-danger")
     divWorker.innerHTML = `
         <img src="${worker.photourl}" 
-             width="38" height="38" class="rounded-circle">
-        <div>
-            <small class="fs-12 text-muted   " >${worker.fullname}</small>
-            <small class="text-muted d-block fs-10">${worker.role}</small>
-        </div>
-        <button class=" bg-light   border-0 rounded  text-danger p-0 m-0 " onclick="removeWorkerFromRoom(${worker.id})">
-           x
-        </button`
+             width="38" height="38" class="rounded-circle border bg-warning border-2">
+        <button class="  bg-light  align-self-start   d-flex align-items-start  border-0 rounded  text-danger p-0  " onclick="removeWorkerFromRoom(${worker.id})">
+            x
+        </button>`
     roomCard.appendChild(divWorker)
 }
 
@@ -539,13 +563,34 @@ document.getElementById('add_workers_Staff_room').addEventListener('click', func
 
 
 function affiche_list_worker_filter(whoker_in_room, title) {
-    document.getElementById('model-filter-staff').innerHTML = ""
-    document.getElementById('model-filter-staff').append(affiche_worker_filter_title(title))
-    whoker_in_room.forEach(worker => {
-        document.getElementById('model-filter-staff').append(affiche_worker_filter(worker))
-    });
-}
+    document.getElementById('model-filter-staff').innerHTML = "";
+    document.getElementById('model-filter-staff').append(affiche_worker_filter_title(title));
 
+
+    if (whoker_in_room.length > 0) {
+        let roomFullContainer = document.createElement('div');
+        roomFullContainer.className = " scroll-y h-75 p-3";
+        whoker_in_room.forEach(worker => {
+            roomFullContainer.append(affiche_worker_filter(worker));
+        });
+        document.getElementById('model-filter-staff').append(roomFullContainer)
+    } else {
+        let roomEmptyContainer = document.createElement('div');
+        roomEmptyContainer.className = "text-center p-3";
+
+        roomEmptyContainer.innerHTML = `
+            <div class="mb-3">
+                <i class="bi bi-people" style="font-size: 90px; color: #ced4da;"></i> 
+            </div>
+            <p class="text-muted mb-2">
+                No workers found matching the filter criteria.
+            </p>
+            
+        `;
+
+        document.getElementById('model-filter-staff').append(roomEmptyContainer);
+    }
+}
 document.getElementById('model-filter-staff').addEventListener('click', (e) => {
     try {
         let elementClick = e.target
@@ -576,23 +621,23 @@ document.getElementById('model-filter-staff').addEventListener('click', (e) => {
 
 
 function affiche_worker_filter_title(title) {
-    let carttitile = document.createElement('div')
-    carttitile.className = "d-flex justify-content-between "
+    let carttitile = document.createElement('div');
+    carttitile.className = "d-flex justify-content-between align-items-center p-3 border-bottom bg-light ";
     carttitile.innerHTML =
-        `   <span class="p-2"> ${title}  </span> 
-         <button class="  border-0  bg-white bg-opacity-0  m-0 p-0  rounded  text-danger  ">
-                   X
-                </button>       
-             `
+        ` <span class="">${title}</span> 
+          <button type="button" class="btn-close" ></button>
+        `;
     carttitile.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON')
-            document.getElementById('model-filter-staff').classList.toggle('d-none')
-    })
-    return carttitile
+        if (e.target.classList.contains('btn-close')) {
+            document.getElementById('model-filter-staff').classList.toggle('d-none');
+        }
+    });
+
+    return carttitile;
 }
 function affiche_worker_filter(worker) {
     let cartworker = document.createElement('div')
-    cartworker.className = "d-flex bg-light  border justify-content-center align-items-center m-1 rounded p-1 worker"
+    cartworker.className = "d-flex bg-light  border justify-content-center align-items-center m-1 rounded p-1 worker "
     cartworker.id = worker.id
     cartworker.innerHTML =
         `  
