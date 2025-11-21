@@ -4,7 +4,7 @@ let maxReception_room = 5
 let maxStaff_room = 4
 let maxSecurity_room = 2
 let maxServer_room = 3
-
+ 
 assign_Staff_to_Carte()
 show_Unassigned_Staff_list()
 
@@ -479,7 +479,7 @@ document.getElementById('add_workers_Archives_room').addEventListener('click', f
     if (count_worker_assignto_this_room.length < maxArchives_room) {
         document.getElementById('model-filter-staff').classList.remove('d-none')
         document.getElementById('model-filter-staff').setAttribute('data-room', 'Archives_room')
-        let workers_in_archives_room = workers.filter(worker => worker.etat === 'NotYet' && worker.role === "Manager")
+        let workers_in_archives_room = workers.filter(worker => worker.etat === 'NotYet' && worker.role !== "Cleaning Staff")
         affiche_list_worker_filter(workers_in_archives_room, "Workers Authorized to  Archives Room ")
     }
     else {

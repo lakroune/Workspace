@@ -67,7 +67,7 @@
      background-size: cover;
      background-blend-mode: color-dodge;
  }
-
+ 
  #ServerRoom {
      grid-row: 1 / 6;
      grid-column: 7/10;
